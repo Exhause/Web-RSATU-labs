@@ -20,10 +20,4 @@ public class Item {
 
     private String name;
     private int quantity;
-
-    @ManyToMany(mappedBy = "requestedItems")
-    private List<Deal> dealsAsRequested;
-
-    @OneToMany(mappedBy = "givenItem")
-    private List<Deal> dealsAsGiven;
 }

@@ -19,7 +19,4 @@ public class Village {
     private Long id; // Код деревни
 
     private String name;
-
-    @OneToMany(mappedBy = "village")
-    private List<Villager> villagers;
 }

@@ -20,26 +20,4 @@ public class Deal {
 
     private int experienceAmount;
     private int tradesPerCycle;
-
-    @ManyToMany
-    @JoinTable(
-            joinColumns = @JoinColumn(name = "villager_id")
-    )
-    private List<Villager> villagers;
-
-    // Предметы, которые ЗАПРАШИВАЮТСЯ
-    @ManyToMany
-    @JoinTable(
-            name = "deal_requested_items",
-            joinColumns = @JoinColumn(name = "deal_id")
-    )
-    private List<Item> requestedItems;
-
-    // Предмет, который ОТДАЕТСЯ
-    @ManyToOne
-    @JoinTable(
-            name = "deal_given_items",
-            joinColumns = @JoinColumn(name = "deal_id")
-    )
-    private Item givenItem;
 }

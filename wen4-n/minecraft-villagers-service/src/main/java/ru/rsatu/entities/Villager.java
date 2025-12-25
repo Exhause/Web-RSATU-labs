@@ -27,7 +27,4 @@ public class Villager {
     @ManyToOne
     @JoinColumn(name = "village_id")
     private Village village;
-
-    @ManyToMany(mappedBy = "villagers")
-    private List<Deal> deals;
 }
