@@ -13,5 +13,6 @@ public class VillagerSaveDto {
     private Long id;
     private int tradeLevel;
     private String profession;
-    private List<Long> deals;
+
+    private Long village;
 }

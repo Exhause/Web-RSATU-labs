@@ -5,8 +5,6 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-import java.util.List;
-
 @Entity
 @Table(name = "deals")
 @Getter
@@ -20,4 +18,8 @@ public class Deal {
 
     private int experienceAmount;
     private int tradesPerCycle;
+
+    @ManyToOne
+    @JoinColumn(name = "given_item_id")
+    private Item givenItem;
 }

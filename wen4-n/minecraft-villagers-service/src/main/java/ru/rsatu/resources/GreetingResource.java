@@ -1,4 +1,4 @@
-package ru.rsatu.api;
+package ru.rsatu.resources;
 
 import jakarta.ws.rs.GET;
 import jakarta.ws.rs.Path;
