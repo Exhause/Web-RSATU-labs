@@ -15,10 +15,10 @@ public class VillagersMakeDeals {
     Long id;
 
     @ManyToOne
-    @JoinColumn(name="villager_id")
+    @JoinColumn(name = "villager_id")
     private Villager villager;
 
     @ManyToOne
-    @JoinColumn(name="deal_id")
+    @JoinColumn(name = "deal_id")
     private Deal deal;
 }

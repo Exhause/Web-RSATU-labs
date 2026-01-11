@@ -15,10 +15,10 @@ public class DealsRequestItems {
     Long id;
 
     @ManyToOne
-    @JoinColumn(name="deal_id")
+    @JoinColumn(name = "deal_id")
     private Deal deal;
 
     @ManyToOne
-    @JoinColumn(name="item_id")
+    @JoinColumn(name = "item_id")
     private Item item;
 }

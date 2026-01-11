@@ -20,6 +20,11 @@ public interface VillagerMapper {
 
     VillagerDto toDto(Villager villager, List<DealDto> deals);
 
+    @Mapping(target = "id", ignore = true)
+    @Mapping(target = "village", source = "village")
+    @Mapping(target = "name", source = "villagerSaveDto.name")
+    Villager fromSaveDtoToTransient(VillagerSaveDto villagerSaveDto, Village village);
+
     @Mapping(target = "id", source = "villagerSaveDto.id")
     @Mapping(target = "village", source = "village")
     @Mapping(target = "name", source = "villagerSaveDto.name")

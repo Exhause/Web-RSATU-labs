@@ -43,11 +43,11 @@ public class VillagerService {
 
     @Transactional
     public VillagerDto createVillager(VillagerSaveDto villagerSaveDto) {
-        Village village = villageRepository.findById(villagerSaveDto.getVillageId());
+        Village village = villageRepository.getById(villagerSaveDto.getVillageId());
 
         return villagerMapper.toDto(
                 villagerRepository.createVillager(
-                        villagerMapper.fromSaveDto(villagerSaveDto, village)
+                        villagerMapper.fromSaveDtoToTransient(villagerSaveDto, village)
                 ),
                 new ArrayList<>()
         );
@@ -55,8 +55,8 @@ public class VillagerService {
 
     @Transactional
     public void addDealToVillager(Long villagerId, Long dealId) {
-        Villager villager = villagerRepository.findById(villagerId);
-        Deal deal = dealRepository.findById(dealId);
+        Villager villager = villagerRepository.getById(villagerId);
+        Deal deal = dealRepository.getById(dealId);
         villagersMakeDealsRepository.addDeal(villager, deal);
     }
 
@@ -66,7 +66,7 @@ public class VillagerService {
     }
 
     public VillagerDto getVillagerById(Long villagerId) {
-        Villager villager = villagerRepository.findById(villagerId);
+        Villager villager = villagerRepository.getById(villagerId);
         List<Deal> dealList = villagersMakeDealsRepository.getDealsByVillagerId(villagerId);
 
         Map<Deal, List<Item>> requestedItemsByDeal = dealsRequestItemsRepository.getRequestedItems();
@@ -81,7 +81,7 @@ public class VillagerService {
 
     @Transactional
     public VillagerDto updateVillager(VillagerSaveDto villagerSaveDto) {
-        Village village = villageRepository.findById(villagerSaveDto.getVillageId());
+        Village village = villageRepository.getById(villagerSaveDto.getVillageId());
 
         villagerRepository.updateVillager(villagerMapper.fromSaveDto(villagerSaveDto, village));
 

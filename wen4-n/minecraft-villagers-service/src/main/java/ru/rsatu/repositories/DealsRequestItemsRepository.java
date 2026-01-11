@@ -24,7 +24,7 @@ public class DealsRequestItemsRepository implements PanacheRepository<DealsReque
     }
 
     public List<Item> getRequestedItemsByDealId(Long dealId) {
-        return list("deal_id = ?1", dealId)
+        return list("deal.id = ?1", dealId)
                 .stream()
                 .map(DealsRequestItems::getItem)
                 .toList();
@@ -40,6 +40,6 @@ public class DealsRequestItemsRepository implements PanacheRepository<DealsReque
     }
 
     public void deleteRequestedItemsByDealId(Long dealId) {
-        delete("deal_id = ?1", dealId);
+        delete("deal.id = ?1", dealId);
     }
 }

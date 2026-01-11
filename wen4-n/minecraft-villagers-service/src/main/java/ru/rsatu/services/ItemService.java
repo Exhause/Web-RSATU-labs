@@ -22,7 +22,7 @@ public class ItemService {
     public ItemDto createItem(ItemSaveDto itemSaveDto) {
         return itemMapper.toDto(
                 itemRepository.createItem(
-                        itemMapper.fromSaveDto(itemSaveDto)
+                        itemMapper.fromSaveDtoToTransient(itemSaveDto)
                 )
         );
     }

@@ -17,6 +17,10 @@ import java.util.List;
 public interface DealMapper {
     DealDto toDto(Deal deal, List<Item> requestedItems);
 
+    @Mapping(target = "id", ignore = true)
+    @Mapping(target = "givenItem", source = "givenItem")
+    Deal fromSaveDtoToTransient(DealSaveDto dealSaveDto, Item givenItem);
+
     @Mapping(target = "id", source = "dealSaveDto.id")
     @Mapping(target = "givenItem", source = "givenItem")
     Deal fromSaveDto(DealSaveDto dealSaveDto, Item givenItem);

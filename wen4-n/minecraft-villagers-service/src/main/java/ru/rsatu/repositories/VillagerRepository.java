@@ -2,6 +2,7 @@ package ru.rsatu.repositories;
 
 import io.quarkus.hibernate.orm.panache.PanacheRepository;
 import jakarta.enterprise.context.ApplicationScoped;
+import jakarta.ws.rs.NotFoundException;
 import ru.rsatu.entities.Villager;
 
 import java.util.List;
@@ -14,7 +15,7 @@ public class VillagerRepository implements PanacheRepository<Villager> {
     }
 
     public void updateVillager(Villager newVillager) {
-        Villager villager = findById(newVillager.getId());
+        Villager villager = getById(newVillager.getId());
 
         villager.setVillage(newVillager.getVillage());
         villager.setName(newVillager.getName());
@@ -23,6 +24,16 @@ public class VillagerRepository implements PanacheRepository<Villager> {
     }
 
     public List<Villager> getVillagersByVillageId(Long villageId) {
-        return list("village_id = ?1", villageId);
+        return list("village.id = ?1", villageId);
+    }
+
+    public Villager getById(Long id) {
+        Villager villager = findById(id);
+
+        if (villager == null) {
+            throw new NotFoundException();
+        }
+
+        return villager;
     }
 }

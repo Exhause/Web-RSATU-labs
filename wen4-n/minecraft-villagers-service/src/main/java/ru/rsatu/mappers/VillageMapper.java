@@ -20,6 +20,9 @@ public interface VillageMapper {
 
     VillageDto toDto(Village village, List<Villager> villagers);
 
+    @Mapping(target = "id", ignore = true)
+    Village fromSaveDtoToTransient(VillageSaveDto villageSaveDto);
+
     Village fromSaveDto(VillageSaveDto villageSaveDto);
 
     List<VillageShortDto> toShortDtoList(List<Village> village);

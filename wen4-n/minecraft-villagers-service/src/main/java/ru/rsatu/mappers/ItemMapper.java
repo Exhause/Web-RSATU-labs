@@ -1,6 +1,7 @@
 package ru.rsatu.mappers;
 
 import org.mapstruct.Mapper;
+import org.mapstruct.Mapping;
 import ru.rsatu.dtos.ItemDto;
 import ru.rsatu.dtos.ItemSaveDto;
 import ru.rsatu.entities.Item;
@@ -11,7 +12,8 @@ import java.util.List;
 public interface ItemMapper {
     ItemDto toDto(Item item);
 
-    Item fromSaveDto(ItemSaveDto itemSaveDto);
+    @Mapping(target = "id", ignore = true)
+    Item fromSaveDtoToTransient(ItemSaveDto itemSaveDto);
 
     List<ItemDto> toDtoList(List<Item> itemList);
 }

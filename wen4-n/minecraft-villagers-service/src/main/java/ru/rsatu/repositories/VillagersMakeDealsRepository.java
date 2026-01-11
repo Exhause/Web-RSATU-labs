@@ -16,13 +16,13 @@ public class VillagersMakeDealsRepository implements PanacheRepository<Villagers
     }
 
     public List<Deal> getDealsByVillagerId(Long villagerId) {
-        return list("villager_id = ?1", villagerId)
+        return list("villager.id = ?1", villagerId)
                 .stream()
                 .map(VillagersMakeDeals::getDeal)
                 .toList();
     }
 
     public void removeDeal(Long villagerId, Long dealId) {
-        delete("villager_id = ?1 and deal_id = ?2", villagerId, dealId);
+        delete("villager.id = ?1 and deal.id = ?2", villagerId, dealId);
     }
 }

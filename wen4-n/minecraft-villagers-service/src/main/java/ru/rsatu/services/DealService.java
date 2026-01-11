@@ -32,11 +32,11 @@ public class DealService {
 
     @Transactional
     public DealDto createDeal(DealSaveDto dealSaveDto) {
-        Item givenItem = itemRepository.findById(dealSaveDto.getGivenItemId());
+        Item givenItem = itemRepository.getById(dealSaveDto.getGivenItemId());
         List<Item> requestedItems = itemRepository.getByIds(dealSaveDto.getRequestedItemsIds());
 
         final Deal deal = dealRepository.createDeal(
-                dealMapper.fromSaveDto(dealSaveDto, givenItem)
+                dealMapper.fromSaveDtoToTransient(dealSaveDto, givenItem)
         );
 
         dealsRequestItemsRepository.addRequestedItems(deal, requestedItems);
@@ -59,7 +59,7 @@ public class DealService {
 
     @Transactional
     public DealDto updateDeal(DealSaveDto dealSaveDto) {
-        Item givenItem = itemRepository.findById(dealSaveDto.getGivenItemId());
+        Item givenItem = itemRepository.getById(dealSaveDto.getGivenItemId());
         List<Item> requestedItems = itemRepository.getByIds(dealSaveDto.getRequestedItemsIds());
 
         final Deal deal = dealRepository.updateDeal(

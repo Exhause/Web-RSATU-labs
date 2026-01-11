@@ -31,7 +31,7 @@ public class VillageService {
     public VillageDto createVillage(VillageSaveDto villageSaveDto) {
         return villageMapper.toDto(
                 villageRepository.createVillage(
-                        villageMapper.fromSaveDto(villageSaveDto)
+                        villageMapper.fromSaveDtoToTransient(villageSaveDto)
                 ),
                 new ArrayList<>()
         );
@@ -42,7 +42,7 @@ public class VillageService {
     }
 
     public VillageDto getVillageById(Long villageId) {
-        Village village = villageRepository.findById(villageId);
+        Village village = villageRepository.getById(villageId);
 
         List<Villager> villagerList = villagerRepository.getVillagersByVillageId(villageId);
 
