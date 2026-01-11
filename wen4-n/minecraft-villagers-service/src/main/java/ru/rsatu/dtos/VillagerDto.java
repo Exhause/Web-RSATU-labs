@@ -11,6 +11,7 @@ import java.util.List;
 @NoArgsConstructor
 public class VillagerDto {
     private Long id;
+    private String name;
     private int tradeLevel;
     private String profession;
     private List<DealDto> deals;

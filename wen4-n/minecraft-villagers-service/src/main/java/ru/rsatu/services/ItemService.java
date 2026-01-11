@@ -19,16 +19,16 @@ public class ItemService {
     private ItemMapper itemMapper;
 
     @Transactional
-    public Long createItem(ItemSaveDto itemSaveDto) {
-        return itemRepository.createItem(itemMapper.fromSaveDto(itemSaveDto));
+    public ItemDto createItem(ItemSaveDto itemSaveDto) {
+        return itemMapper.toDto(
+                itemRepository.createItem(
+                        itemMapper.fromSaveDto(itemSaveDto)
+                )
+        );
     }
 
     public List<ItemDto> getAllItems() {
-        return itemRepository
-                .listAll()
-                .stream()
-                .map(item -> itemMapper.toDto(item))
-                .toList();
+        return itemMapper.toDtoList(itemRepository.listAll());
     }
 
     @Transactional

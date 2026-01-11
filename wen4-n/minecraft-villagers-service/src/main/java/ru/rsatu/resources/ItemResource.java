@@ -4,10 +4,11 @@ import jakarta.inject.Inject;
 import jakarta.ws.rs.*;
 import jakarta.ws.rs.core.MediaType;
 import jakarta.ws.rs.core.Response;
+import ru.rsatu.dtos.ItemDto;
 import ru.rsatu.dtos.ItemSaveDto;
 import ru.rsatu.services.ItemService;
 
-import java.util.Map;
+import java.util.List;
 
 @Path("/items")
 @Consumes(MediaType.APPLICATION_JSON)
@@ -17,25 +18,18 @@ public class ItemResource {
     private ItemService itemService;
 
     @POST
-    public Response createItem(ItemSaveDto itemSaveDto) {
-        return Response
-                .status(Response.Status.CREATED)
-                .entity(Map.of("id", itemService.createItem(itemSaveDto)))
-                .build();
+    public ItemDto createItem(ItemSaveDto itemSaveDto) {
+        return itemService.createItem(itemSaveDto);
     }
 
     @GET
-    public Response getAllItems() {
-        return Response
-                .ok(itemService.getAllItems())
-                .build();
+    public List<ItemDto> getAllItems() {
+        return itemService.getAllItems();
     }
 
     @DELETE
     @Path("/{id}")
-    public Response deleteItem(@PathParam("id") Long id) {
-        return Response
-                .ok()
-                .build();
+    public void deleteItem(@PathParam("id") Long id) {
+        itemService.deleteItem(id);
     }
 }

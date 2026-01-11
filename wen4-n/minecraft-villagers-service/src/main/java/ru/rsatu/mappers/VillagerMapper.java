@@ -2,11 +2,11 @@ package ru.rsatu.mappers;
 
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
-import org.mapstruct.MappingTarget;
+import ru.rsatu.dtos.DealDto;
 import ru.rsatu.dtos.VillagerDto;
 import ru.rsatu.dtos.VillagerSaveDto;
 import ru.rsatu.dtos.VillagerShortDto;
-import ru.rsatu.entities.Deal;
+import ru.rsatu.entities.Village;
 import ru.rsatu.entities.Villager;
 
 import java.util.List;
@@ -18,10 +18,10 @@ import java.util.List;
 public interface VillagerMapper {
     VillagerShortDto toShortDto(Villager villager);
 
-    VillagerDto toDto(Villager villager);
+    VillagerDto toDto(Villager villager, List<DealDto> deals);
 
-    @Mapping(target = "villagerDto.deals", source = "deals")
-    void enrichDtoWithDeals(@MappingTarget VillagerDto villagerDto, List<Deal> deals);
-
-    Villager fromSaveDto(VillagerSaveDto villagerSaveDto);
+    @Mapping(target = "id", source = "villagerSaveDto.id")
+    @Mapping(target = "village", source = "village")
+    @Mapping(target = "name", source = "villagerSaveDto.name")
+    Villager fromSaveDto(VillagerSaveDto villagerSaveDto, Village village);
 }

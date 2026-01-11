@@ -18,11 +18,9 @@ import java.util.List;
 public interface VillageMapper {
     VillageShortDto toShortDto(Village village);
 
-    @Mapping(target = "villagers", ignore = true)
-    VillageDto toDto(Village village);
-
-    @Mapping(target = "villagers", source = "villagers")
-    void enrichDtoWithVillagers(@MappingTarget VillageDto villageDto, List<Villager> villagers);
+    VillageDto toDto(Village village, List<Villager> villagers);
 
     Village fromSaveDto(VillageSaveDto villageSaveDto);
+
+    List<VillageShortDto> toShortDtoList(List<Village> village);
 }

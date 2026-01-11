@@ -16,5 +16,5 @@ public class DealSaveDto {
     private int tradesPerCycle;
 
     private List<Long> requestedItemsIds;
-    private Long givenItem;
+    private Long givenItemId;
 }

@@ -11,8 +11,9 @@ import java.util.List;
 @NoArgsConstructor
 public class VillagerSaveDto {
     private Long id;
+    private String name;
     private int tradeLevel;
     private String profession;
 
-    private Long village;
+    private Long villageId;
 }

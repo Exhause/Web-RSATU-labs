@@ -2,7 +2,6 @@ package ru.rsatu.mappers;
 
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
-import org.mapstruct.MappingTarget;
 import ru.rsatu.dtos.DealDto;
 import ru.rsatu.dtos.DealSaveDto;
 import ru.rsatu.entities.Deal;
@@ -16,14 +15,9 @@ import java.util.List;
                 ItemMapper.class
         })
 public interface DealMapper {
-    DealDto toDto(Deal deal);
+    DealDto toDto(Deal deal, List<Item> requestedItems);
 
-    @Mapping(target = "requestedItems", source = "requestedItems")
-    void enrichDtoWithRequestedItems(@MappingTarget DealDto dealDto, List<Item> requestedItems);
-
-    @Mapping(target = "givenItem", ignore = true)
-    Deal fromSaveDto(DealSaveDto dealSaveDto);
-
+    @Mapping(target = "id", source = "dealSaveDto.id")
     @Mapping(target = "givenItem", source = "givenItem")
-    void enrichWithGivenItem(@MappingTarget Deal deal, Item givenItem);
+    Deal fromSaveDto(DealSaveDto dealSaveDto, Item givenItem);
 }
