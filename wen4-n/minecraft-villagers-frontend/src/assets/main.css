@@ -1,0 +1,33 @@
+@import "./base.css";
+
+@font-face {
+  font-family: "MinecraftRus";
+  src: url("./minecraft.ttf");
+}
+
+.page-wrapper {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding-top: 64px;
+  padding-bottom: 14px;
+}
+
+.big-card {
+  width: 100%;
+  max-width: 640px;
+}
+
+body {
+  background-image: url("./minecraft-background.jpg");
+  font-family: "MinecraftRus", sans-serif !important;
+}
+
+nav {
+  position: fixed;
+  left: 0;
+  right: 0;
+  top: 0;
+  z-index: 1000;
+}
