@@ -31,6 +31,8 @@ export default {
   data() {
     return {
       items: [],
+      loading: false,
+      error: null,
     };
   },
   mounted() {
@@ -45,7 +47,7 @@ export default {
         const res = await getAllItems();
         this.items = res.data;
       } catch (e) {
-        this.error = `Failed to load items`;
+        this.error = "Failed to load items";
         console.error(e);
       } finally {
         this.loading = false;
