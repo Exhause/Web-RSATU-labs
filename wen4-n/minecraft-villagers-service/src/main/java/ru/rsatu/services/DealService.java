@@ -77,6 +77,7 @@ public class DealService {
 
     @Transactional
     public void deleteDeal(Long id) {
+        dealsRequestItemsRepository.deleteRequestedItemsByDealId(id);
         dealRepository.deleteById(id);
     }
 }
