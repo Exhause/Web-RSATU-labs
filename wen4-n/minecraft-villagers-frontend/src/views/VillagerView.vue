@@ -8,9 +8,13 @@
       class="big-card shadow"
     >
       <b-list-group v-if="villager !== null">
-        <template v-for="deal in villager.deals">
-          <deal-list-item :key="deal.id" :deal="deal" />
-        </template>
+        <b-list-group-item
+          v-for="deal in villager.deals"
+          :key="deal.id"
+          class="d-flex align-items-center"
+        >
+          <deal-list-item :deal="deal" />
+        </b-list-group-item>
       </b-list-group>
       <template v-if="loading">
         <p>Loading...</p>

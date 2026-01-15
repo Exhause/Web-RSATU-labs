@@ -2,9 +2,32 @@
   <div class="page-wrapper">
     <b-card header="Список сделок" class="big-card shadow">
       <b-list-group>
-        <template v-for="deal in deals">
-          <deal-list-item :key="deal.id" :deal="deal" />
-        </template>
+        <b-list-group-item
+          v-for="deal in deals"
+          :key="deal.id"
+          class="d-flex align-items-center"
+        >
+          <b-container fluid>
+            <b-row class="d-flex align-items-center">
+              <b-col cols="8">
+                <deal-list-item :deal="deal" />
+              </b-col>
+              <b-col cols="2" class="d-flex justify-content-center">
+                <b-button variant="primary" class="small">
+                  <b-icon icon="pencil" />
+                </b-button>
+              </b-col>
+              <b-col cols="2" class="d-flex justify-content-center">
+                <b-button variant="danger" @click="clickDeleteButton(deal.id)">
+                  <b-icon icon="trash" />
+                </b-button>
+              </b-col>
+            </b-row>
+          </b-container>
+        </b-list-group-item>
+        <b-list-group-item class="d-flex align-items-center" button>
+          <b-container fluid> Создать новую сделку </b-container>
+        </b-list-group-item>
       </b-list-group>
       <template v-if="loading">
         <p>Loading...</p>
@@ -16,7 +39,7 @@
   </div>
 </template>
 <script>
-import { getAllDeals } from "../api/deals";
+import { deleteDealById, getAllDeals } from "../api/deals";
 import DealListItem from "../components/DealListItem.vue";
 
 export default {
@@ -44,6 +67,11 @@ export default {
       } finally {
         this.loading = false;
       }
+    },
+
+    clickDeleteButton(dealId) {
+      deleteDealById(dealId);
+      this.loadDeals();
     },
   },
   components: {
