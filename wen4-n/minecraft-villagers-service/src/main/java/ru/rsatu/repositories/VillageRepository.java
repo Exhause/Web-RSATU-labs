@@ -13,9 +13,8 @@ public class VillageRepository implements PanacheRepository<Village> {
     }
 
     public void updateVillage(Village newVillage) {
-        Village village = getById(newVillage.getId());
-
-        village.setName(newVillage.getName());
+        getById(newVillage.getId());
+        getEntityManager().merge(newVillage);
     }
 
     public Village getById(Long id) {

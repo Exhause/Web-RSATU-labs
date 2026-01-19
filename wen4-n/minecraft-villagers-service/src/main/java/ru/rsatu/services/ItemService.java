@@ -31,6 +31,16 @@ public class ItemService {
         return itemMapper.toDtoList(itemRepository.listAll());
     }
 
+    public ItemDto getItemById(Long itemId) {
+        return itemMapper.toDto(itemRepository.getById(itemId));
+    }
+
+    @Transactional
+    public ItemDto updateItem(ItemSaveDto itemSaveDto) {
+        itemRepository.updateItem(itemMapper.fromSaveDto(itemSaveDto));
+        return getItemById(itemSaveDto.getId());
+    }
+
     @Transactional
     public void deleteItem(Long id) {
         itemRepository.deleteById(id);

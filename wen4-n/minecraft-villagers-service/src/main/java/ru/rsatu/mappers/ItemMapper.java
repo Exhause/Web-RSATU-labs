@@ -15,5 +15,7 @@ public interface ItemMapper {
     @Mapping(target = "id", ignore = true)
     Item fromSaveDtoToTransient(ItemSaveDto itemSaveDto);
 
+    Item fromSaveDto(ItemSaveDto itemSaveDto);
+
     List<ItemDto> toDtoList(List<Item> itemList);
 }

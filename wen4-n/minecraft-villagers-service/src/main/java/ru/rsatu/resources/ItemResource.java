@@ -3,7 +3,6 @@ package ru.rsatu.resources;
 import jakarta.inject.Inject;
 import jakarta.ws.rs.*;
 import jakarta.ws.rs.core.MediaType;
-import jakarta.ws.rs.core.Response;
 import ru.rsatu.dtos.ItemDto;
 import ru.rsatu.dtos.ItemSaveDto;
 import ru.rsatu.services.ItemService;
@@ -25,6 +24,17 @@ public class ItemResource {
     @GET
     public List<ItemDto> getAllItems() {
         return itemService.getAllItems();
+    }
+
+    @GET
+    @Path("/{id}")
+    public ItemDto getItemById(@PathParam("id") Long itemId) {
+        return itemService.getItemById(itemId);
+    }
+
+    @PUT
+    public ItemDto updateItem(ItemSaveDto itemSaveDto) {
+        return itemService.updateItem(itemSaveDto);
     }
 
     @DELETE

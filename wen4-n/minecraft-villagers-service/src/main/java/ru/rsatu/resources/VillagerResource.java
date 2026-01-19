@@ -26,7 +26,7 @@ public class VillagerResource {
     }
 
     @GET
-    @Path("{id}")
+    @Path("/{id}")
     public VillagerDto getVillagerById(@PathParam("id") Long villagerId) {
         return villagerService.getVillagerById(villagerId);
     }
@@ -37,13 +37,13 @@ public class VillagerResource {
     }
 
     @DELETE
-    @Path("{villagerId}/deals/{dealId}")
+    @Path("/{villagerId}/deals/{dealId}")
     public void removeDealFromVillager(@PathParam("villagerId") Long villagerId, @PathParam("dealId") Long dealId) {
         villagerService.removeDealFromVillager(villagerId, dealId);
     }
 
     @DELETE
-    @Path("{id}")
+    @Path("/{id}")
     public void deleteVillager(@PathParam("id") Long id) {
         villagerService.deleteVillager(id);
     }

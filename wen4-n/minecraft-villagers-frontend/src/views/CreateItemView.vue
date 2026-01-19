@@ -1,60 +1,30 @@
 <template>
   <div class="page-wrapper">
-    <b-card class="big-card">
-      <b-form @submit.prevent="onSave">
-        <b-form-group label="Название">
-          <b-form-input v-model="item.name" required />
-        </b-form-group>
-        <b-form-group label="Количество">
-          <b-form-input
-            v-model.number="item.quantity"
-            type="number"
-            min="1"
-            required
-          />
-        </b-form-group>
-
-        <div class="d-flex justify-content-end gap-2">
-          <b-button variant="secondary" @click="onCancel"> Cancel </b-button>
-          <b-button variant="primary" type="submit"> Save </b-button>
-        </div>
-      </b-form>
+    <b-card header="Создание нового предмета" class="big-card shadow">
+      <item-form
+        :initialItem="{ id: 0, name: '', quantity: 1 }"
+        :onCancel="onCancel"
+        :onSave="onSave"
+      />
     </b-card>
   </div>
 </template>
-
 <script>
+import { createItem } from "../api/items";
+import ItemForm from "../components/ItemForm.vue";
+
 export default {
-  props: {
-    startingItem: {
-      type: Object,
-      required: true,
-    },
-    createItem: {
-      type: Function,
-      required: true,
-    },
-    onReturn: {
-      type: Function,
-      required: true,
-    },
-  },
-
-  data() {
-    return {
-      item: { ...this.item },
-    };
-  },
-
   methods: {
     onCancel() {
-      this.onReturn();
+      this.$router.push("/items");
     },
-
-    onSave() {
-      this.createItem(this.item);
-      this.onReturn();
+    async onSave(item) {
+      await createItem(item);
+      this.$router.push("/items");
     },
+  },
+  components: {
+    ItemForm,
   },
 };
 </script>

@@ -1,5 +1,5 @@
 <template>
-  <div v-if="!updating" class="page-wrapper">
+  <div class="page-wrapper">
     <b-card header="Список предметов" class="big-card shadow">
       <b-list-group>
         <b-list-group-item
@@ -9,11 +9,16 @@
         >
           <b-container fluid>
             <b-row class="align-items-center">
-              <b-col cols="10">
+              <b-col cols="8">
                 <item-list-item :item="item" />
               </b-col>
               <b-col cols="2" class="d-flex justify-content-center">
-                <b-button variant="danger" @click="clickDeleteButton(item.id)">
+                <b-button variant="primary" @click="onClickUpdate(item.id)">
+                  <b-icon icon="pencil" />
+                </b-button>
+              </b-col>
+              <b-col cols="2" class="d-flex justify-content-center">
+                <b-button variant="danger" @click="onDelete(item.id)">
                   <b-icon icon="trash" />
                 </b-button>
               </b-col>
@@ -23,7 +28,7 @@
         <b-list-group-item
           class="d-flex align-items-center"
           button
-          @click="updating = true"
+          @click="onClickCreate()"
         >
           <b-container fluid> Создать новый предмет </b-container>
         </b-list-group-item>
@@ -36,21 +41,10 @@
       </template>
     </b-card>
   </div>
-  <create-item-view
-    v-else
-    :startingItem="{
-      id: 0,
-      name: '',
-      quantity: 1,
-    }"
-    :createItem="completeCreateItem"
-    :onReturn="returnToList"
-  />
 </template>
 <script>
-import { createItem, deleteItemById, getAllItems } from "../api/items";
+import { deleteItemById, getAllItems } from "../api/items";
 import ItemListItem from "../components/ItemListItem.vue";
-import CreateItemView from "./CreateItemView.vue";
 
 export default {
   data() {
@@ -58,10 +52,9 @@ export default {
       items: [],
       loading: false,
       error: null,
-      updating: false,
     };
   },
-  mounted() {
+  created() {
     this.loadItems();
   },
   methods: {
@@ -79,21 +72,19 @@ export default {
         this.loading = false;
       }
     },
-    clickDeleteButton(itemId) {
-      deleteItemById(itemId);
-      setTimeout(this.loadItems, 500);
+    async onDelete(itemId) {
+      await deleteItemById(itemId);
+      this.loadItems();
     },
-    completeCreateItem(item) {
-      createItem(item);
+    onClickUpdate(itemId) {
+      this.$router.push(`/items/${itemId}/update`);
     },
-    returnToList() {
-      this.updating = false;
-      setTimeout(this.loadItems, 500);
+    onClickCreate() {
+      this.$router.push("/items/create");
     },
   },
   components: {
     ItemListItem,
-    CreateItemView,
   },
 };
 </script>

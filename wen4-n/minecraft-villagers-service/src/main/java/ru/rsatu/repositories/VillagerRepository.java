@@ -15,12 +15,8 @@ public class VillagerRepository implements PanacheRepository<Villager> {
     }
 
     public void updateVillager(Villager newVillager) {
-        Villager villager = getById(newVillager.getId());
-
-        villager.setVillage(newVillager.getVillage());
-        villager.setName(newVillager.getName());
-        villager.setProfession(newVillager.getProfession());
-        villager.setTradeLevel(newVillager.getTradeLevel());
+        getById(newVillager.getId());
+        getEntityManager().merge(newVillager);
     }
 
     public List<Villager> getVillagersByVillageId(Long villageId) {

@@ -1,13 +1,21 @@
 import { api } from "./api";
 
-export function getAllItems() {
-  return api.get("/items");
+export async function getAllItems() {
+  return await api.get("/items");
 }
 
-export function createItem(item) {
-  return api.post("/items", item);
+export async function getItemById(id) {
+  return await api.get(`/items/${id}`);
 }
 
-export function deleteItemById(id) {
-  api.delete(`/items/${id}`);
+export async function createItem(item) {
+  return await api.post("/items", item);
+}
+
+export async function updateItem(item) {
+  return await api.put("/items", item);
+}
+
+export async function deleteItemById(id) {
+  await api.delete(`/items/${id}`);
 }

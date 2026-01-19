@@ -12,14 +12,9 @@ public class DealRepository implements PanacheRepository<Deal> {
         return deal;
     }
 
-    public Deal updateDeal(Deal newDeal) {
-        Deal deal = getById(newDeal.getId());
-
-        deal.setExperienceAmount(newDeal.getExperienceAmount());
-        deal.setTradesPerCycle(newDeal.getTradesPerCycle());
-        deal.setGivenItem(newDeal.getGivenItem());
-
-        return deal;
+    public void updateDeal(Deal newDeal) {
+        getById(newDeal.getId());
+        getEntityManager().merge(newDeal);
     }
 
     public Deal getById(Long id) {

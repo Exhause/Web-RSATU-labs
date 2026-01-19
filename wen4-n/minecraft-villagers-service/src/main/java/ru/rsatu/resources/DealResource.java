@@ -27,6 +27,12 @@ public class DealResource {
         return dealService.getAllDeals();
     }
 
+    @GET
+    @Path("/{id}")
+    public DealDto getDealById(@PathParam("id") Long dealId) {
+        return dealService.getDealById(dealId);
+    }
+
     @PUT
     public DealDto updateDeal(DealSaveDto dealSaveDto) {
         return dealService.updateDeal(dealSaveDto);

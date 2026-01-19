@@ -13,7 +13,25 @@
           :key="deal.id"
           class="d-flex align-items-center"
         >
-          <deal-list-item :deal="deal" />
+          <b-container fluid>
+            <b-row class="align-items-center">
+              <b-col cols="10">
+                <deal-list-item :deal="deal" />
+              </b-col>
+              <b-col cols="2" class="d-flex justify-content-center">
+                <b-button variant="danger" @click.stop="onRemoveDeal(deal.id)">
+                  <b-icon icon="arrow-left-right" />
+                </b-button>
+              </b-col>
+            </b-row>
+          </b-container>
+        </b-list-group-item>
+        <b-list-group-item
+          class="d-flex align-items-center"
+          button
+          @click="onClickAddDeal()"
+        >
+          <b-container fluid> Добавить сделку жителю </b-container>
         </b-list-group-item>
       </b-list-group>
       <template v-if="loading">
@@ -28,7 +46,7 @@
 
 <script>
 import DealListItem from "../components/DealListItem.vue";
-import { getVillagerById } from "../api/villagers";
+import { getVillagerById, removeDealFromVillager } from "../api/villagers";
 export default {
   props: ["id"],
   data() {
@@ -38,7 +56,7 @@ export default {
       error: null,
     };
   },
-  mounted() {
+  created() {
     this.loadVillager();
   },
   methods: {
@@ -55,6 +73,13 @@ export default {
       } finally {
         this.loading = false;
       }
+    },
+    onClickAddDeal() {
+      this.$router.push(`/villagers/${this.id}/deals/add`);
+    },
+    async onRemoveDeal(dealId) {
+      await removeDealFromVillager(this.id, dealId);
+      this.loadVillager();
     },
   },
   components: {

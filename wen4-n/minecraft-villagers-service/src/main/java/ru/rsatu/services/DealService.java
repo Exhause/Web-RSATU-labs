@@ -57,14 +57,23 @@ public class DealService {
                 .toList();
     }
 
+    public DealDto getDealById(Long dealId) {
+        return dealMapper.toDto(
+                dealRepository.getById(dealId),
+                dealsRequestItemsRepository.getRequestedItemsByDealId(dealId)
+        );
+    }
+
     @Transactional
     public DealDto updateDeal(DealSaveDto dealSaveDto) {
         Item givenItem = itemRepository.getById(dealSaveDto.getGivenItemId());
         List<Item> requestedItems = itemRepository.getByIds(dealSaveDto.getRequestedItemsIds());
 
-        final Deal deal = dealRepository.updateDeal(
+        dealRepository.updateDeal(
                 dealMapper.fromSaveDto(dealSaveDto, givenItem)
         );
+
+        final Deal deal = dealRepository.getById(dealSaveDto.getId());
 
         dealsRequestItemsRepository.deleteRequestedItemsByDealId(deal.getId());
         dealsRequestItemsRepository.addRequestedItems(deal, requestedItems);

@@ -14,6 +14,11 @@ public class ItemRepository implements PanacheRepository<Item> {
         return item;
     }
 
+    public void updateItem(Item newItem) {
+        getById(newItem.getId());
+        getEntityManager().merge(newItem);
+    }
+
     public Item getById(Long id) {
         Item item = findById(id);
 

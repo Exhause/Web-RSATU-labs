@@ -4,7 +4,7 @@
   <div id="app">
     <nav>
       <b-navbar variant="dark" class="position-relative">
-        <router-link to="/">
+        <router-link to="/villages">
           <b-button variant="dark">Деревни</b-button>
         </router-link>
         <router-link to="/items">

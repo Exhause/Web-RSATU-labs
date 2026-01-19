@@ -13,19 +13,23 @@
                 <deal-list-item :deal="deal" />
               </b-col>
               <b-col cols="2" class="d-flex justify-content-center">
-                <b-button variant="primary" class="small">
+                <b-button variant="primary" @click="onClickUpdate(deal.id)">
                   <b-icon icon="pencil" />
                 </b-button>
               </b-col>
               <b-col cols="2" class="d-flex justify-content-center">
-                <b-button variant="danger" @click="clickDeleteButton(deal.id)">
+                <b-button variant="danger" @click="onDelete(deal.id)">
                   <b-icon icon="trash" />
                 </b-button>
               </b-col>
             </b-row>
           </b-container>
         </b-list-group-item>
-        <b-list-group-item class="d-flex align-items-center" button>
+        <b-list-group-item
+          class="d-flex align-items-center"
+          button
+          @click="onClickCreate()"
+        >
           <b-container fluid> Создать новую сделку </b-container>
         </b-list-group-item>
       </b-list-group>
@@ -50,7 +54,7 @@ export default {
       error: null,
     };
   },
-  mounted() {
+  created() {
     this.loadDeals();
   },
   methods: {
@@ -69,9 +73,17 @@ export default {
       }
     },
 
-    clickDeleteButton(dealId) {
-      deleteDealById(dealId);
+    async onDelete(dealId) {
+      await deleteDealById(dealId);
       this.loadDeals();
+    },
+
+    onClickUpdate(dealId) {
+      this.$router.push(`/deals/${dealId}/update`);
+    },
+
+    onClickCreate() {
+      this.$router.push("/deals/create");
     },
   },
   components: {
